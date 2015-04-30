@@ -1,8 +1,12 @@
 {
   "manifest_version": 2,
-  "name": "Cram Extortion",
+  "name": "jomnify",
   "version": "1.0",
-  "description": "A very silly Chrome Extension",
+  "description": "a very silly chrome extensiom",
+  "icons":
+  {
+    "128": "jomny-logo.png"
+  },
   "content_scripts": 
   [
     {

@@ -4,16 +4,16 @@ var DOCUMENT_FRAGMENT = 11;
 var TEXT = 3;
 
 // How strange, on a scale of 0 to 1, you want the result to be
-var STRANGENESS_INDEX = 0.1;
+var STRANGENESS_INDEX = 0.15;
 
 replacements = {
-  "a": ["ab", "an", "am", "o"],
-  "e": ["eb", "er"],
-  "i": ["i", "im"],
-  "n": ["n", "m", "nn"],
+  "a": ["a", "a", "ab", "am", ""],
+  "e": ["e", "eb", ""],
+  "i": ["i", ""],
+  "n": ["n", "m", "mm"],
   "r": ["r", "rb"],
-  "o": ["o", "or"],
-  "u": ["ur", "um", ""]
+  "o": ["o", ""],
+  "u": ["u", ""]
 };
 
 
