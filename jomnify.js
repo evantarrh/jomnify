@@ -7,36 +7,43 @@ var TEXT = 3;
 var STRANGENESS_INDEX = 0.1;
 
 replacements = {
-  "a": ["ab", "an", "e", "o"],
-  "e": ["eb", ""],
+  "a": ["ab", "an", "am", "o"],
+  "e": ["eb", "er"],
   "i": ["i", "im"],
   "n": ["n", "m", "nn"],
   "r": ["r", "rb"],
-  "o": ["or", "ar"],
+  "o": ["o", "or"],
   "u": ["ur", "um", ""]
 };
 
 
 
-function walk(node) {
-  // Function from here for replacing text:  http: //is.gd/mwZp7E
 
+function walk(node) 
+{
+  // I stole this function from here:
+  // http://is.gd/mwZp7E
+  
   var child, next;
 
-  switch (node.nodeType) {
-    case ELEMENT:   // Element
-    case DOCUMENT:   // Document
-    case DOCUMENT_FRAGMENT:  // Document fragment
+  switch ( node.nodeType )  
+  {
+    case 1:  // Element
+    case 9:  // Document
+    case 11: // Document fragment
       child = node.firstChild;
-      while (child) {
+      while ( child ) 
+      {
         next = child.nextSibling;
         walk(child);
         child = next;
       }
       break;
 
-    case TEXT:  // Text node
-      replaceText(node);
+    case 3: // Text node
+      if(node.parentElement.tagName.toLowerCase() != "script" && node.parentElement.tagName.toLowerCase() != "style") {
+          replaceText(node);
+      }
       break;
   }
 }
