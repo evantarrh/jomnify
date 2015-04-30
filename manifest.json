@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Cram Extortion",
+  "version": "1.0",
+  "description": "A very silly Chrome Extension",
+  "content_scripts": 
+  [
+    {
+      "matches": ["*://*/*"],
+      "js": ["jomnify.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
