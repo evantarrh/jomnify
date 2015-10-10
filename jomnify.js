@@ -1,12 +1,10 @@
-var ELEMENT = 1;
-var DOCUMENT = 9;
 var DOCUMENT_FRAGMENT = 11;
 var TEXT = 3;
 
 // How strange, on a scale of 0 to 1, you want the result to be
 var STRANGENESS_INDEX = 0.15;
 
-replacements = {
+var replacements = {
   "a": ["a", "a", "ab", "am", ""],
   "e": ["e", "eb", ""],
   "i": ["i", ""],
@@ -16,35 +14,25 @@ replacements = {
   "u": ["u", ""]
 };
 
-
-
-
-function walk(node) 
+function walk (node)
 {
-  // I stole this function from here:
-  // http://is.gd/mwZp7E
-  
-  var child, next;
+  var child;
+  var next;
 
-  switch ( node.nodeType )  
-  {
-    case 1:  // Element
-    case 9:  // Document
-    case 11: // Document fragment
-      child = node.firstChild;
-      while ( child ) 
+  if (node.nodeType == DOCUMENT_FRAGMENT) {
+    child = node.firstChild;
+      while ( child )
       {
         next = child.nextSibling;
         walk(child);
         child = next;
       }
-      break;
-
-    case 3: // Text node
-      if(node.parentElement.tagName.toLowerCase() != "script" && node.parentElement.tagName.toLowerCase() != "style") {
+  }
+  else if (node.nodeType == TEXT) {
+    var tagName = node.parentElement.tagName.toLowerCase();
+    if(tagName != "script" && tagName != "style") {
           replaceText(node);
       }
-      break;
   }
 }
 
@@ -52,12 +40,12 @@ function replaceText(textNode) {
   var chars = textNode.nodeValue.split('');
 
   chars.forEach(function(char, i) {
-    // if (Math.random() < STRANGENESS_INDEX && char.match(/[a-zA-Z]/)) {
-    //   chars[i] = charactersDictionary[char][0];
-    // }
-    if (Math.random() < STRANGENESS_INDEX && char.match(/[aeinou]/)) {
-      chars[i] = replacements[char][Math.floor(Math.random()*replacements[char].length)];
+    // make substitutions
+    if (Math.random() < STRANGENESS_INDEX && char.match(/[aeinrou]/)) {
+      var possibleSubs = replacements[char];
+      chars[i] = possibleSubs[Math.floor(Math.random()*possibleSubs.length)];
     }
+    // make everything lowercase
     if (char.match(/[A-Z]/)) {
       chars[i] = char.toLowerCase();
     }
@@ -67,4 +55,3 @@ function replaceText(textNode) {
 }
 
 walk(document.body);
-
